@@ -1,0 +1,61 @@
+pipeline {
+    agent any 
+
+    environment {
+        AWS_REGION = 'us-east-1'
+        S3_BUCKET  = 'stack-application188'
+        CF_DIST_ID = ''
+        
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main' , 
+                credentialsId: 'github-creds', 
+                url: 'https://github.com/kaviyarashugayu1997-maker/stack-application.git'
+            }
+        }
+
+        stage('Build & Install') {
+            steps {
+                dir('frontend') {
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Unit Test') {
+            steps {
+                dir('frontend') {
+                    sh 'npm test' 
+                }
+            }
+        }
+
+        stage('Deploy to S3') {
+            steps {
+                withAWS(credentials: 'aws-static-site-creds', region: "${env.AWS_REGION}") {
+                    sh "aws s3 sync frontend/ ${env.S3_BUCKET}/ --delete --exclude 'node_modules/*'"
+                }
+            }
+        }
+
+        stage('CloudFront Invalidation') {
+            steps {
+                withAWS(credentials: 'aws-static-site-creds', region: "${env.AWS_REGION}") {
+                    sh "aws cloudfront create-invalidation --distribution-id ${env.CF_DIST_ID} --paths '/*'"
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline Successful"
+        }
+        failure {
+            echo "Pipeline Failed"
+        }
+    }
+}
