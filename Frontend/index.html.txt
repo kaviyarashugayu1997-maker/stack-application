@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Inventory | Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #1f2937;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        p {
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .status-card {
+            background-color: #f9fafb;
+            padding: 1.2rem;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #9ca3af;
+            margin-bottom: 0.25rem;
+        }
+
+        #status {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #374151;
+        }
+
+        .refresh-btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            width: 100%;
+        }
+
+        .refresh-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        .refresh-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Status Colors */
+        .online { color: #059669 !important; }
+        .offline { color: #dc2626 !important; }
+        .connecting { color: #d97706 !important; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Inventory Dashboard</h1>
+        <p>Real-time system monitoring</p>
+
+        <div class="status-card">
+            <span class="status-label">Server Connection</span>
+            <div id="status" class="connecting">Checking Status...</div>
+        </div>
+
+        <button class="refresh-btn" onclick="checkStatus()">Refresh Connection</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
