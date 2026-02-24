@@ -1,12 +1,8 @@
 {
-  "name": "smart-inventory-frontend",
+  "name": "frontend",
   "version": "1.0.0",
-  "description": "Static frontend for Smart Inventory App",
+  "main": "app.js",
   "scripts": {
-    "start": "npx serve .",
-    "test": "echo \"No tests yet\" && exit 0"
-  },
-  "devDependencies": {
-    "serve": "^14.2.1"
+    "start": "node app.js"
   }
 }
